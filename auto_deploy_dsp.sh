@@ -4,6 +4,9 @@
 
 current_dir=$(pwd)
 
+echo ""
+echo "Capturing Required Config for install:"
+echo ""
 read -p "Please enter install base install directory: " installdir
 read -p "Please enter MySQL host address (127.0.0.1): " sqlhost
 read -p "Please enter the root user for mysql: " mysqlrootuser
