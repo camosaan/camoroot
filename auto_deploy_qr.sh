@@ -18,30 +18,30 @@ echo "Preparing to deploy DSP: Quetz..."
 echo "Creating install directory in: '${installdir}' ..."
 mkdir -p ${installdir}
 mkdir -p ${installdir}/temp
-mkdir -p ${installdir}/dsp_init
+mkdir -p ${installdir}/dsp_init && echo "Install dirs created..."
 
 echo "Deploying installation and auto-setup files..."
 
-tar xf install_qr.tz -C ${installdir}/temp/
+tar xf install_dsp.tz -C ${installdir}/tmp/ && echo "Installation files ready..."
 
 echo "Creating DB User & Database..."
 
-sed -i 's/zoneipreplace/'${zoneip}'/g' ${installdir}/temp/zone_ip.sql
-sed -i 's/dbusername'/${dbusername}'/g' ${installdir}/temp/create_users.sql
-sed -i 's/dbuserpass/'${dbuserpass}'/g' ${installdir}/temp/create_users.sql
-sed -i 's/dbname/'${dbname}'/g' ${installdir}/temp/create_users.sql
+sed -i 's/zoneipreplace/'${zoneip}'/g' ${installdir}/temp/zone_ip.sql && echo "Zone IP configured..."
+sed -i 's/dbusername'/${dbusername}'/g' ${installdir}/temp/create_users.sql && echo "DB user configured..."
+sed -i 's/dbuserpass/'${dbuserpass}'/g' ${installdir}/temp/create_users.sql && echo "DB password configured..."
+sed -i 's/dbname/'${dbname}'/g' ${installdir}/temp/create_users.sql && echo "DB name configured..."
 
 mysql -u ${mysqlrootuser} -p${mysqlrootpass} < ${installdir}/temp/create_users.sql && echo "User & Database created successfully!"
  
 echo "Grabbing Quetz code..."
 
-git clone https://github.com/m241dan/darkstar.git ${installdir}/git_clone_code
+git clone https://github.com/m241dan/darkstar.git ${installdir}/git_clone_code && echo "Clone of QR branch complete.."
 
 ## Grabbing Quetz code but running DB inits from original DSP: 
 
-echo "Removing SQL & inits from QR GIT..."
+echo "Removing SQL & inits from QR branch..."
 
-rm -r ${installdir}/git_clone_code/sql
+rm -r ${installdir}/git_clone_code/sql && echo "Dropped DSP DB init..."
 
 "Grabbing DB build/inits from DSP & merging into Quetz..."
 
